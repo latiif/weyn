@@ -11,8 +11,9 @@ body {
   background-color: #f5f5f7;
   color: #1d1d1f;
   display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
 }
 
@@ -25,9 +26,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   border: 3px solid #007a3d; /* Green border inspired by the Syrian flag */
-  flex: 1; /* Allow the container to grow and take up available space */
-  margin: auto; /* Center the container horizontally */
-  margin-bottom: 20px; /* Add some space between container and footer */
 }
 
 h1 {
@@ -75,39 +73,29 @@ button:active {
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
-color: #007a3d; /* Green color inspired by the Syrian flag */
-}
-
-guess-result {
+  color: #007a3d; /* Green color inspired by the Syrian flag */
+}guess-result {
   margin-top: 20px;
-}
-
-#city-name {
-  font-size: 18px;
-  font-weight: 600;
+#city-name { 18px;
+  font-weight: 600;* Green color inspired by the Syrian flag */
   margin-top: 10px;
+  font-size: 18px;
   color: #1d1d1f;
-}
-
+} font-weight: 600;
+  margin-top: 10px;
 #attempts-counter {
   font-weight: bold;
   margin-top: 10px;
   color: #d71a1a; /* Red color for emphasis */
-}
-
-img {
-  margin: 10px 0;
+}attempts-counter {
+  font-weight: bold;
+img {gin-top: 10px;
+  margin: 10px 0; /* Red color for emphasis */
   width: 50px;
   border-radius: 4px;
-}
-
-footer {
-  background-color: #f0f0f0;
-  padding: 10px;
-  text-align: center;
-  margin-top: auto; /* Push footer to bottom */
-  width: 100%;
-  position: relative;
-  bottom: 0;
+  border: 2px solid #000000; /* Black border for the Syrian flag image */
+} margin: 10px 0;
+  width: 50px;
+  border-radius: 4px;
+  border: 2px solid #000000; /* Black border for the Syrian flag image */
 }
