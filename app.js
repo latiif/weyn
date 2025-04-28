@@ -219,8 +219,8 @@ function getAttemptsLeft() {
     return savedData.attemptsLeft;
   } else {
     // Reset attempts for a new day
-    saveAttemptsLeft(3);
-    return 3;
+    saveAttemptsLeft(5);
+    return 5;
   }
 }
 
