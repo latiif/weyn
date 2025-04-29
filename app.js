@@ -258,13 +258,22 @@ function loadPreviousGuesses() {
   guessMarkers.forEach(marker => map.removeLayer(marker));
   guessMarkers = [];
 
+  // Get today's city index from localStorage (for daily change)
+  const cityIndex = getTodayCityIndex();
+  const dailyCity = cities[cityIndex];
+
   if (savedGuesses[today]) {
     document.getElementById('guess-result').innerText = savedGuesses[today]
       .map((guess, _) => `${guess.distance} كم ${directionMap[guess.direction]}`)
       .join('\n');
-    // Add a marker for each guess
+    // Add a marker for each guess, with popup showing distance and direction
     savedGuesses[today].forEach(guess => {
-      const marker = L.marker([guess.lat, guess.lon]).addTo(map);
+      const marker = L.marker([guess.lat, guess.lon], {
+        icon: L.divIcon({
+          iconSize: "auto",
+          html: guess.distance <= 5 ? "<b>" + `📍${dailyCity.name_ar}` + "</b>" : "<b>" + `${guess.distance}كم${directionMap[guess.direction]}` + "</b>"
+        })
+      }).addTo(map)
       guessMarkers.push(marker);
     });
     // Move userMarker to the last guess
