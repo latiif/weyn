@@ -61,7 +61,7 @@ fetch('cities.json')
     const dailyCity = cities[cityIndex];
 
     // Display the daily city name
-    document.getElementById('city-name').innerText = `وين صارت `;
+    document.getElementById('city-name').innerText = 'وين صارت مدينة ';
     const cityNameSpan = document.createElement('strong');
     cityNameSpan.innerText = dailyCity.name_ar;
     document.getElementById('city-name').appendChild(cityNameSpan);
