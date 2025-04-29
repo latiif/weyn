@@ -109,6 +109,7 @@ fetch('cities.json')
           attemptsLeft--;
           saveAttemptsLeft(attemptsLeft);
           updateAttemptsCounter(distance);
+          loadPreviousGuesses();
         } else {
           document.getElementById('guess-info').innerText = "يرجى وضع تخمينك على الخريطة!";
         }
@@ -125,9 +126,6 @@ fetch('cities.json')
       const launchDate = new Date(2025, 3, 28); // Month is 0-based
       const currentDate = new Date();
       const daysSinceLaunch = Math.floor((currentDate - launchDate) / (1000 * 60 * 60 * 24)) + 1;
-
-      // Create coordinates list for the emoji map
-      const guessCoords = todayGuesses.map(guess => [guess.lat, guess.lon]);
 
       // Create the result text
       const guessResults = todayGuesses
@@ -240,6 +238,8 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png
 
 // Add a marker to show where the user clicked
 let userMarker = null;
+// Store all guess markers
+let guessMarkers = [];
 
 // Add map click listener
 map.on('click', function (e) {
@@ -254,15 +254,27 @@ function loadPreviousGuesses() {
   const today = new Date().toDateString();
   const savedGuesses = JSON.parse(localStorage.getItem('dailyGuesses')) || {};
 
+  // Remove old guess markers from map
+  guessMarkers.forEach(marker => map.removeLayer(marker));
+  guessMarkers = [];
+
   if (savedGuesses[today]) {
     document.getElementById('guess-result').innerText = savedGuesses[today]
       .map((guess, _) => `${guess.distance} كم ${directionMap[guess.direction]}`)
       .join('\n');
-    const guess = savedGuesses[today].at(-1);
-    if (userMarker) {
-      userMarker.setLatLng( new L.LatLng(guess.lat, guess.lon)); // Move the existing marker
-    } else {
-      userMarker = L.marker( new L.LatLng(guess.lat, guess.lon)).addTo(map); // Add a new marker
+    // Add a marker for each guess
+    savedGuesses[today].forEach(guess => {
+      const marker = L.marker([guess.lat, guess.lon]).addTo(map);
+      guessMarkers.push(marker);
+    });
+    // Move userMarker to the last guess
+    const lastGuess = savedGuesses[today].at(-1);
+    if (lastGuess) {
+      if (userMarker) {
+        userMarker.setLatLng(new L.LatLng(lastGuess.lat, lastGuess.lon));
+      } else {
+        userMarker = L.marker(new L.LatLng(lastGuess.lat, lastGuess.lon)).addTo(map);
+      }
     }
   }
 }
