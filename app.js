@@ -2,6 +2,8 @@
 let cities = [];
 let attemptsLeft = getAttemptsLeft(); // Initialize attempts from localStorage
 
+const successRange = 10; // Distance in km for a successful guess
+
 const directionMap = {
   N: '⬆️',
   NE: '↗️',
@@ -68,7 +70,9 @@ fetch('cities.json')
     document.getElementById('city-name').appendChild(document.createTextNode('؟'));
 
     // Display the initial attempts left
-    updateAttemptsCounter();
+    const today = new Date().toDateString();
+    const savedGuesses = JSON.parse(localStorage.getItem('dailyGuesses')) || {};
+    updateAttemptsCounter(savedGuesses[today]?.at(-1)?.distance || Infinity);
 
     // Handle the guess submission
     document.getElementById('submit-guess').addEventListener('click', function () {
@@ -77,8 +81,6 @@ fetch('cities.json')
           const userLat = userMarker.getLatLng().lat;
           const userLon = userMarker.getLatLng().lng;
           const { distance, direction } = haversineWithDirection(userLat, userLon, dailyCity.lat, dailyCity.lon);
-          const arabicDirection = directionMap[direction];
-          const resultText = `${Math.round(distance)} كم ${arabicDirection}`;
 
           // Get existing guesses or initialize new array
           const today = new Date().toDateString();
@@ -127,9 +129,14 @@ fetch('cities.json')
       const currentDate = new Date();
       const daysSinceLaunch = Math.floor((currentDate - launchDate) / (1000 * 60 * 60 * 24)) + 1;
 
+      // Get today's city index from localStorage (for daily change)
+      const cityIndex = getTodayCityIndex();
+      const dailyCity = cities[cityIndex];
+
+
       // Create the result text
       const guessResults = todayGuesses
-        .map((guess, _) => `${guess.distance}${directionMap[guess.direction]}`)
+        .map((guess, _) => guess.distance <= successRange ? `📍${dailyCity.name_ar}` : `${guess.distance}${directionMap[guess.direction]}`)
         .join('\n');
 
       // Add game title, day counter and URL
@@ -155,7 +162,6 @@ fetch('cities.json')
 
 // Helper function to calculate distance and direction
 function haversineWithDirection(lat1, lon1, lat2, lon2) {
-  console.log(lat1, lon1)
   const R = 6371; // Earth's radius in km
   const toRad = (deg) => deg * Math.PI / 180;
   const toDeg = (rad) => rad * 180 / Math.PI;
@@ -191,8 +197,8 @@ function updateAttemptsCounter(distance) {
   const submitButton = document.getElementById('submit-guess');
   const shareButton = document.getElementById('copy-result');
 
-  if ((attemptsLeft === 0) || (distance <= 5)) {
-    attemptsCounter.innerText = distance > 5 ? `لقد استنفذت محاولاتك اليوم، حاول مجدداً غداً` : 'أحسنت!'
+  if ((attemptsLeft === 0) || (distance <= successRange)) {
+    attemptsCounter.innerText = distance > successRange ? `لقد استنفذت محاولاتك اليوم، حاول مجدداً غداً` : 'أحسنت!'
     submitButton.style.display = 'none';
     shareButton.style.display = 'block';
   } else {
@@ -271,7 +277,7 @@ function loadPreviousGuesses() {
       const marker = L.marker([guess.lat, guess.lon], {
         icon: L.divIcon({
           iconSize: "auto",
-          html: guess.distance <= 5 ? "<b>" + `📍${dailyCity.name_ar}` + "</b>" : "<b>" + `${guess.distance}كم${directionMap[guess.direction]}` + "</b>"
+          html: guess.distance <= successRange ? "<b>" + `📍${dailyCity.name_ar}` + "</b>" : "<b>" + `${guess.distance}كم${directionMap[guess.direction]}` + "</b>"
         })
       }).addTo(map)
       guessMarkers.push(marker);
