@@ -41,7 +41,7 @@ h1 {
 
 p {
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   color: #6e6e73;
 }
 
@@ -56,7 +56,6 @@ button {
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  margin-top: 20px;
   align-self: center; /* Ensure button is centered in flex container */
 }
 
@@ -73,7 +72,7 @@ button:active {
 }
 
 #map {
-  margin-top: 20px;
+  margin-top: 10px;
   height: 400px;
   width: 100%;
   overflow: hidden;
@@ -81,7 +80,6 @@ button:active {
 }
 
 guess-result {
-  margin-top: 20px;
 }
 
 #city-name {
@@ -93,7 +91,6 @@ guess-result {
 
 #attempts-counter {
   font-weight: bold;
-  margin-top: 10px;
   color: #d71a1a; /* Red color for emphasis */
 }
 
