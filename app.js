@@ -191,6 +191,40 @@ function haversineWithDirection(lat1, lon1, lat2, lon2) {
   return { distance, direction };
 }
 
+// Add this function to show the countdown timer
+function showNextCityTimer() {
+  let timerDiv = document.getElementById('next-city-timer');
+  if (!timerDiv) {
+    timerDiv = document.createElement('div');
+    timerDiv.id = 'next-city-timer';
+    timerDiv.style.cssText = 'margin-top:16px;font-size:18px;color:#007a3d;font-weight:bold;text-align:center;';
+    document.querySelector('.container').appendChild(timerDiv);
+    console.log("in show next city timer")
+  }
+
+  function updateTimer() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setHours(24, 0, 0, 0); // Next midnight
+    const diff = tomorrow - now;
+    if (diff > 0) {
+      const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+      const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+      const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+      let parts = [];
+      if (parseInt(hours) > 0) parts.push(`${parseInt(hours)} ساعة`);
+      if (parseInt(minutes) > 0) parts.push(`${parseInt(minutes)} دقيقة`);
+      if (parseInt(seconds) > 0) parts.push(`${parseInt(seconds)} ثانية`);
+      timerDiv.innerText = `سيتم الكشف عن المدينة الجديدة بعد: ${parts.join(' و ')}`;
+    } else {
+      timerDiv.innerText = 'تم الكشف عن المدينة الجديدة!';
+    }
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+}
+
 // Update the attempts counter on the page
 function updateAttemptsCounter(distance) {
   const attemptsCounter = document.getElementById('attempts-counter');
@@ -198,13 +232,17 @@ function updateAttemptsCounter(distance) {
   const shareButton = document.getElementById('copy-result');
 
   if ((attemptsLeft === 0) || (distance <= successRange)) {
-    attemptsCounter.innerText = distance > successRange ? `لقد استنفذت محاولاتك اليوم، حاول مجدداً غداً` : 'أحسنت!'
+    attemptsCounter.innerText = distance > successRange ? `لقد استنفذت محاولاتك اليوم، حاول مجدداً غداً` : 'أحسنت!';
     submitButton.style.display = 'none';
     shareButton.style.display = 'block';
+    showNextCityTimer(); // Show timer when game ends
   } else {
     attemptsCounter.innerText = `المحاولات المتبقية: ${attemptsLeft}`;
     submitButton.style.display = 'block';
     shareButton.style.display = 'none';
+    // Hide timer if it exists
+    const timerDiv = document.getElementById('next-city-timer');
+    if (timerDiv) timerDiv.style.display = 'none';
   }
 }
 
