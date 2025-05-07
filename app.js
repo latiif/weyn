@@ -237,10 +237,23 @@ function saveAttemptsLeft(attempts) {
 // Initialize the map using Leaflet
 const map = L.map('map').setView([35.0, 37.0], 6); // Default view centered on Syria
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; OpenStreetMap contributors & CartoDB',
-  maxZoom: 19
-}).addTo(map);
+// Define base layers
+const baseLayers = {
+  "خريطة مبسطة": L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors & CartoDB',
+    maxZoom: 19
+  }),
+  "صورة فضائية": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+    maxZoom: 19
+  })
+};
+
+// Add the default base layer
+baseLayers["خريطة مبسطة"].addTo(map);
+
+// Add layer control to switch between map and satellite
+L.control.layers(baseLayers).addTo(map);
 
 // Add a marker to show where the user clicked
 let userMarker = null;
