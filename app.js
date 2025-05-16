@@ -198,8 +198,7 @@ function showNextCityTimer() {
     timerDiv = document.createElement('div');
     timerDiv.id = 'next-city-timer';
     timerDiv.style.cssText = 'margin-top:16px;font-size:18px;color:#007a3d;font-weight:bold;text-align:center;';
-    document.querySelector('.container').appendChild(timerDiv);
-    console.log("in show next city timer")
+    document.querySelector('.container').insertBefore(timerDiv, document.querySelector('.container').firstChild);
   }
 
   function updateTimer() {
@@ -215,7 +214,7 @@ function showNextCityTimer() {
       if (parseInt(hours) > 0) parts.push(`${parseInt(hours)} ساعة`);
       if (parseInt(minutes) > 0) parts.push(`${parseInt(minutes)} دقيقة`);
       if (parseInt(seconds) > 0) parts.push(`${parseInt(seconds)} ثانية`);
-      timerDiv.innerText = `سيتم الكشف عن المدينة الجديدة بعد: ${parts.join(' و ')}`;
+      timerDiv.innerText = `سيتم الكشف عن المدينة الجديدة بعد:\n${parts.join(' و ')}`;
     } else {
       timerDiv.innerText = 'تم الكشف عن المدينة الجديدة!';
     }
