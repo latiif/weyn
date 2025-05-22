@@ -20,26 +20,28 @@ body {
 .container {
   text-align: center;
   width: 90%;
+  max-width: 600px; /* Added */
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   border: 3px solid #007a3d;
   margin-top: 0;
+  margin-bottom: 20px; /* Added */
   display: flex;
   flex-direction: column;
   align-items: center; /* Center children horizontally */
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 1.75rem; /* 28px / 16px */
   font-weight: 600;
   margin-bottom: 5px;
   color: #d71a1a; /* Red color inspired by the Syrian flag */
 }
 
 p {
-  font-size: 16px;
+  font-size: 1rem; /* 16px / 16px */
   margin-bottom: 5px;
   color: #6e6e73;
 }
@@ -50,7 +52,7 @@ button {
   color: #1d1d1f; /* Dark text for contrast */
   border: 1px solid #d1d1d6; /* Light border for a clean look */
   border-radius: 12px; /* Rounded corners for a modern feel */
-  font-size: 16px;
+  font-size: 1rem; /* 16px / 16px */
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
@@ -72,17 +74,23 @@ button:active {
 
 #map {
   margin-top: 10px;
-  height: 400px;
+  height: 50vh; /* Changed from 400px */
+  max-height: 400px; /* Added */
+  min-height: 300px; /* Added */
   width: 100%;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-guess-result {
+#guess-result {
+  margin-top: 20px;
+  font-size: 1.125rem; /* 18px / 16px */
+  color: #007aff;
+  display: none;
 }
 
 #city-name {
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px / 16px */
   font-weight: 600;
   margin-top: 10px;
   color: #1d1d1f;
@@ -91,6 +99,7 @@ guess-result {
 #attempts-counter {
   font-weight: bold;
   color: #d71a1a; /* Red color for emphasis */
+  margin-top: 10px;
 }
 
 #flag-img {
@@ -98,4 +107,37 @@ guess-result {
   width: 50px;
   border-radius: 4px;
   border: 2px solid #000000; /* Black border for the Syrian flag image */
+}
+
+footer p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+footer a {
+  color: #1da1f2;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  p {
+    font-size: 0.9375rem; /* 15px */
+  }
+
+  button {
+    font-size: 0.9375rem; /* 15px */
+    min-height: 44px; /* Added for better mobile tap target */
+  }
+
+  #city-name {
+    font-size: 1rem; /* 16px */
+  }
+
+  #guess-result {
+    font-size: 1rem; /* 16px */
+  }
 }
