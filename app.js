@@ -124,8 +124,8 @@ fetch('cities.json')
       const savedGuesses = JSON.parse(localStorage.getItem('dailyGuesses')) || {};
       const todayGuesses = savedGuesses[today] || [];
 
-      // Calculate the days since game launch (e.g., from April 28, 2025)
-      const launchDate = new Date(2025, 3, 28); // Month is 0-based
+      // Calculate the days since game launch (e.g., from May 22, 2025)
+      const launchDate = new Date(2025, 4, 22); // Month is 0-based
       const currentDate = new Date();
       const daysSinceLaunch = Math.floor((currentDate - launchDate) / (1000 * 60 * 60 * 24)) + 1;
 
