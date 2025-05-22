@@ -46,5 +46,13 @@
     { "name": "Tadif", "name_ar": "تادف", "lat": 36.3481, "lon": 37.5309 },
     { "name": "Jayrud", "name_ar": "جيرود", "lat": 33.8071, "lon": 36.7386 },
     { "name": "Saraqib", "name_ar": "سراقب", "lat": 35.8645, "lon": 36.8059 },
-    { "name": "Al Malikiyah", "name_ar": "المالكية", "lat": 37.1770, "lon": 42.1401 }
+    { "name": "Al Malikiyah", "name_ar": "المالكية", "lat": 37.1770, "lon": 42.1401 },
+    { "name": "Safita", "name_ar": "صافيتا", "lat": 34.8203, "lon": 36.1256 },
+    { "name": "Ain Issa", "name_ar": "عين عيسى", "lat": 36.3833, "lon": 38.8667 },
+    { "name": "Tell Abyad", "name_ar": "تل أبيض", "lat": 36.6964, "lon": 38.9583 },
+    { "name": "Al-Qaryatayn", "name_ar": "القريتين", "lat": 34.2275, "lon": 37.2431 },
+    { "name": "Mashta al-Helou", "name_ar": "مشتى الحلو", "lat": 34.8642, "lon": 36.2347 },
+    { "name": "Al-Zabadani", "name_ar": "الزبداني", "lat": 33.7244, "lon": 36.1001 },
+    { "name": "Maaloula", "name_ar": "معلولا", "lat": 33.8439, "lon": 36.5450 },
+    { "name": "Kassab", "name_ar": "كسب", "lat": 35.9242, "lon": 35.9931 }
 ]
