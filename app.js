@@ -140,7 +140,7 @@ fetch('cities.json')
         .join('\n');
 
       // Add game title, day counter and URL
-      const fullResult = `#وين_بسوريا ${daysSinceLaunch}\n${guessResults}\n\nhttps://weyn.latiif.se`;
+      const fullResult = `#وين_بسوريا ${daysSinceLaunch} ${todayGuesses.length}\\5 \n${guessResults}\n\nhttps://weyn.latiif.se`;
 
       // Copy to clipboard
       copyToClipboard(fullResult).then(success => {
